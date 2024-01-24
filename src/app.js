@@ -10,10 +10,11 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(compression());
 
-
-
 // init DB
 
+const db = require('./dbs/init.mongodb');
+const { countConnect, checkOverload } = require('./helpers/check.connect');
+checkOverload();
 // init route
 
 app.get('/', (req, res, next) => {
