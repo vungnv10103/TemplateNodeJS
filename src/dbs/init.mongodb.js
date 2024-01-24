@@ -1,7 +1,8 @@
 'use strict'
 
+require('dotenv').config();
 const mongoose = require('mongoose');
-const connecURL = "mongodb+srv://vungnguyenn1001:Pdtz8uoPEmQA1eHE@cluster0.w4gpger.mongodb.net/shop_dev?retryWrites=true&w=majority";
+const connecURL = process.env.URL_DB;
 const { countConnect } = require('../helpers/check.connect');
 
 
