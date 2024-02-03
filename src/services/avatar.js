@@ -25,6 +25,7 @@ class AvatarService {
             case "en":
                 const dataEN = await modelEnglish.findOne({ question }).lean();
                 if (!dataEN) {
+                    console.log("not found: ", question);
                     return { message: "error get answer english", code: 0, timestamp: timestamp };
                 }
                 return { answer: dataEN.answer, message: "get answer success", code: 1, timestamp: timestamp };
@@ -32,6 +33,7 @@ class AvatarService {
             case "vi":
                 const dataVI = await modelVietnamese.findOne({ question }).lean();
                 if (!dataVI) {
+                    console.log("not found: ", question);
                     return { message: "error get answer vietnamese", code: 0, timestamp: timestamp };
                 }
                 return { answer: dataVI.answer, message: "get answer success", code: 1, timestamp: timestamp };
@@ -59,6 +61,7 @@ class AvatarService {
             case "en":
                 const recordEN = await modelEnglish.findOne({ question }).lean();
                 if (recordEN) {
+                    console.log("record exist");
                     return { id: recordEN._id, message: " record exist", code: 1, timestamp: timestamp };
                 } else {
                     const newRecord = new modelEnglish({
@@ -66,19 +69,22 @@ class AvatarService {
                         answer: answer
                     });
                     await newRecord.save();
+                    console.log("add new record english success");
                     return { id: newRecord._id, message: "add new record english success", code: 1, timestamp: timestamp };
                 }
                 break;
             case "vi":
                 const recordVI = await modelVietnamese.findOne({ question }).lean();
                 if (recordVI) {
-                    return { id: recordVI._id, message: " record exist", code: 1, timestamp: timestamp };
+                    console.log("record exist");
+                    return { id: recordVI._id, message: "record exist", code: 1, timestamp: timestamp };
                 } else {
                     const newRecord = new modelVietnamese({
                         question: question,
                         answer: answer
                     });
                     await newRecord.save();
+                    console.log("add new record vietnamese success");
                     return { id: newRecord._id, message: "add new record vietnamese success", code: 1, timestamp: timestamp };
                 }
                 break;
