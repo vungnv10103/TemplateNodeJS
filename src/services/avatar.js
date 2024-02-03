@@ -26,7 +26,7 @@ class AvatarService {
                 const dataEN = await modelEnglish.findOne({ question }).lean();
                 if (!dataEN) {
                     console.log("not found: ", question);
-                    return { message: "error get answer english", code: 0, timestamp: timestamp };
+                    return { message: "no data", code: 0, timestamp: timestamp };
                 }
                 return { answer: dataEN.answer, message: "get answer success", code: 1, timestamp: timestamp };
                 break;
@@ -34,7 +34,7 @@ class AvatarService {
                 const dataVI = await modelVietnamese.findOne({ question }).lean();
                 if (!dataVI) {
                     console.log("not found: ", question);
-                    return { message: "error get answer vietnamese", code: 0, timestamp: timestamp };
+                    return { message: "no data", code: 0, timestamp: timestamp };
                 }
                 return { answer: dataVI.answer, message: "get answer success", code: 1, timestamp: timestamp };
                 break;
