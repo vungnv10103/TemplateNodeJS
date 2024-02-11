@@ -61,6 +61,11 @@ class AvatarService {
             case "en":
                 const recordEN = await modelEnglish.findOne({ question }).lean();
                 if (recordEN) {
+                    if (recordEN.answer !== answer) {
+                        await modelEnglish.findOneAndUpdate({ question }, { answer }, { new: true });
+                        console.log("Answer updated successfully.");
+                        return { id: recordEN._id, message: " Answer updated successfully.", code: 1, timestamp: timestamp };
+                    }
                     console.log("record exist");
                     return { id: recordEN._id, message: " record exist", code: 1, timestamp: timestamp };
                 } else {
