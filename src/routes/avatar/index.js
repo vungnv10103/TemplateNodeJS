@@ -8,6 +8,8 @@ const { asyncHandler } = require('../../auth/checkAuth');
 
 // TODO get
 route.post('/avatar/getav', asyncHandler(AvatarController.getAV));
+// TODO get
+route.post('/avatar/getallav', asyncHandler(AvatarController.getAll));
 // TODO save
 route.post('/avatar/saveav', asyncHandler(AvatarController.saveAV));
 

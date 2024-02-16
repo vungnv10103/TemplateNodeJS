@@ -1,6 +1,8 @@
 'use strict'
 
+require('dotenv').config();
 const moment = require('moment');
+const API_KEY_AVT = process.env.API_KEY_AVT;
 
 const { BadRequestError } = require("../core/error.response");
 const { modelEnglish } = require('../models/english.model');
@@ -9,6 +11,37 @@ const { modelVietnamese } = require('../models/vietnamese.model');
 
 
 class AvatarService {
+
+    static getAllAV = async ({ key, language }) => {
+        let date = new Date();
+        let timestamp = moment(date).format('YYYY-MM-DD-HH:mm:ss');
+
+        if (key === undefined || key.toString().trim().length === 0) {
+            throw new BadRequestError("Error: key require");
+        }
+        if (language === undefined || language.toString().trim().length === 0) {
+            throw new BadRequestError("Error: language require");
+        }
+        if (key !== API_KEY_AVT) {
+            throw new BadRequestError("Error: vefify fail");
+        }
+
+        switch (language) {
+            case "en":
+                const dataEN = await modelEnglish.find({}, { _id: 0, question: 1, answer: 1 });
+                return { data: dataEN, message: "get allav en success", code: 1, timestamp: timestamp };
+                break;
+            case "vi":
+                const dataVN = await modelVietnamese.find({}, { _id: 0, question: 1, answer: 1 });
+                return { data: dataVN, message: "get allav vi success", code: 1, timestamp: timestamp };
+                break;
+            default:
+                throw new BadRequestError("Error: limit language");
+        }
+
+
+    }
+
     static getAV = async ({ question, language }) => {
 
         let date = new Date();
