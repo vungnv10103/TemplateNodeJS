@@ -8,5 +8,7 @@ const { asyncHandler } = require('../../auth/checkAuth');
 
 // TODO Siginup
 route.post('/shop/signup', asyncHandler(AccessController.signUp));
+// TODO Login
+route.post('/shop/login', asyncHandler(AccessController.login));
 
 module.exports = route;

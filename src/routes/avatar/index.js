@@ -13,4 +13,7 @@ route.post('/avatar/getallav', asyncHandler(AvatarController.getAll));
 // TODO save
 route.post('/avatar/saveav', asyncHandler(AvatarController.saveAV));
 
+// TODO getstring
+route.post('/avatar/get-string', asyncHandler(AvatarController.getString));
+
 module.exports = route;

@@ -7,10 +7,28 @@ const API_KEY_AVT = process.env.API_KEY_AVT;
 const { BadRequestError } = require("../core/error.response");
 const { modelEnglish } = require('../models/english.model');
 const { modelVietnamese } = require('../models/vietnamese.model');
+const { assetStringModel } = require('../models/asset.string.model');
 
 
 
 class AvatarService {
+
+    static getString = async ({ key }) => {
+        let date = new Date();
+        let timestamp = moment(date).format('YYYY-MM-DD-HH:mm:ss');
+
+        if (key === undefined || key.toString().trim().length === 0) {
+            throw new BadRequestError("Error: key require");
+        }
+
+        let dataString = await assetStringModel.findOne({ key }).lean();
+        if (dataString) {
+            return { data: dataString.value, message: "get string success", code: 1, timestamp: timestamp };
+        }
+        else {
+            throw new BadRequestError("Error: get asset string");
+        }
+    }
 
     static getAllAV = async ({ key, language }) => {
         let date = new Date();

@@ -12,6 +12,9 @@ class AvatarController {
     saveAV = async (req, res, next) => {
         return res.status(200).json(await AvatarService.saveAV(req.body));
     }
+    getString = async (req, res, next) => {
+        return res.status(200).json(await AvatarService.getString(req.body));
+    }
 
 }
 
